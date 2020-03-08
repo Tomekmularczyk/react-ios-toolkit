@@ -2,8 +2,11 @@
   "name": "react-ios-toolkit",
   "version": "0.0.1",
   "description": "iOS components library for the Web",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "lib",
   "scripts": {
+    "build": "NODE_ENV=production rollup -c",
+    "typecheck": "tsc --noEmit",
     "test": "test"
   },
   "repository": "git+https://github.com/Tomekmularczyk/react-ios-toolkit.git",
@@ -17,5 +20,21 @@
   "bugs": {
     "url": "https://github.com/Tomekmularczyk/react-ios-toolkit/issues"
   },
-  "homepage": "https://github.com/Tomekmularczyk/react-ios-toolkit#readme"
+  "homepage": "https://github.com/Tomekmularczyk/react-ios-toolkit#readme",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "@rollup/plugin-typescript": "^4.0.0",
+    "@types/react": "^16.9.23",
+    "@types/react-dom": "^16.9.5",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "rollup": "^2.0.2",
+    "tslib": "^1.11.1",
+    "typescript": "^3.8.3"
+  },
+  "peerDependencies": {
+    "react": ">= 16.13",
+    "react-dom": ">= 16.13"
+  }
 }
