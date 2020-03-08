@@ -1,0 +1,21 @@
+{
+  "name": "react-ios-toolkit",
+  "version": "0.0.1",
+  "description": "iOS components library for the Web",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": "git+https://github.com/Tomekmularczyk/react-ios-toolkit.git",
+  "keywords": [
+    "ios",
+    "react",
+    "ui"
+  ],
+  "author": "Tomasz Mularczyk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tomekmularczyk/react-ios-toolkit/issues"
+  },
+  "homepage": "https://github.com/Tomekmularczyk/react-ios-toolkit#readme"
+}
