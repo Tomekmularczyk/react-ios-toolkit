@@ -1,3 +1,3 @@
-import { TabPage } from "./TabPage";
+import { Screen } from "./Screen";
 
-export { TabPage };
+export { Screen as TabPage };

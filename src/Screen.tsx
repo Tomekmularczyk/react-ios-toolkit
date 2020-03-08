@@ -2,11 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 
-interface Props {
-  children?: React.ReactNode;
-  isOpen: boolean;
-}
-
 const TRANSITION_DURATION = 0.3;
 
 function useBodyScrollLock(
@@ -64,7 +59,7 @@ function usePageTransition(isOpen: boolean) {
   React.useEffect(() => {
     const mainContainer = document.getElementById("root");
     if (isOpen && mainContainer) {
-      mainContainer.style.transform = "translate(-100vw)";
+      mainContainer.style.transform = "translate(-20vw)";
     }
 
     return () => {
@@ -73,7 +68,11 @@ function usePageTransition(isOpen: boolean) {
   }, [isOpen]);
 }
 
-export const TabPage = ({ children, isOpen }: Props) => {
+interface Props {
+  children?: React.ReactNode;
+  isOpen: boolean;
+}
+export const Screen = ({ children, isOpen }: Props) => {
   const pageRef = React.useRef<HTMLDivElement | null>(null);
   const container = useOuterContainer();
   useBodyScrollLock(isOpen, pageRef);
@@ -88,8 +87,8 @@ export const TabPage = ({ children, isOpen }: Props) => {
         width: "100vw",
         top: 0,
         height: "100vh",
-        transition: `left ${TRANSITION_DURATION}s ease-out`,
-        left: isOpen ? 0 : "100vw",
+        transition: `transform ${TRANSITION_DURATION}s ease-out`,
+        transform: isOpen ? "translate(0)" : "translate(100vw)",
         /* Fixes iOS vertical scroling through containers with horizontal scroll
              https://stackoverflow.com/questions/41681251/overflow-x-scroll-inside-a-fixed-div-prevents-vertical-scrolling-on-ios */
         WebkitOverflowScrolling: "touch"

@@ -1,11 +1,18 @@
 import React from "react";
 import { linkTo } from "@storybook/addon-links";
 import { Welcome } from "@storybook/react/demo";
-import { TabPage } from "./TabPage";
+import { Screen } from "./Screen";
 
 const containerStyles = {
   backgroundColor: "#bbbbbb",
   minHeight: "100vh"
+};
+
+const innerBlockStyles = {
+  backgroundColor: "#dddddd",
+  minHeight: "100vh",
+  margin: "auto 50px",
+  padding: "0 2rem"
 };
 
 export const Story = () => {
@@ -16,11 +23,13 @@ export const Story = () => {
 
   return (
     <div style={containerStyles}>
-      <button onClick={setOpen}>open</button>
-      <TabPage isOpen={isOpen}>
+      <div style={innerBlockStyles}>
+        <button onClick={setOpen}>open</button>
+      </div>
+      <Screen isOpen={isOpen}>
         <button onClick={setClosed}>close</button>
         <Welcome showApp={linkTo("Button")} />
-      </TabPage>
+      </Screen>
     </div>
   );
 };
@@ -30,7 +39,7 @@ Story.story = {
 };
 
 export default {
-  title: "TabPage",
+  title: "Screen",
   component: Welcome
 };
 
