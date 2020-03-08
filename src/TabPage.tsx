@@ -15,13 +15,16 @@ function useBodyScrollLock(
   pageRef: React.RefObject<HTMLDivElement>
 ) {
   React.useEffect(() => {
-    if (isPageOpen) {
-      disableBodyScroll(pageRef.current);
+    const node = pageRef.current;
+
+    if (isPageOpen && node) {
+      disableBodyScroll(node);
     }
 
-    const node = pageRef.current;
     return () => {
-      enableBodyScroll(node);
+      if (node) {
+        enableBodyScroll(node);
+      }
     };
   }, [isPageOpen, pageRef]);
 }
@@ -91,7 +94,6 @@ export const TabPage = ({ children, isOpen, innerRef }: Props) => {
         ref={el => {
           pageRef.current = el;
           if (innerRef) {
-            // eslint-disable-next-line no-param-reassign
             innerRef.current = el;
           }
         }}

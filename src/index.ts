@@ -1,3 +1,3 @@
-import { Component } from "./Component";
+import { TabPage } from "./TabPage";
 
-export { Component };
+export { TabPage };
