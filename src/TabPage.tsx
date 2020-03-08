@@ -5,7 +5,6 @@ import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 interface Props {
   children?: React.ReactNode;
   isOpen: boolean;
-  innerRef?: React.MutableRefObject<HTMLDivElement | null>;
 }
 
 const TRANSITION_DURATION = 0.3;
@@ -29,15 +28,20 @@ function useBodyScrollLock(
   }, [isPageOpen, pageRef]);
 }
 
-function useOuterContainer() {
+function useOuterContainer(): HTMLDivElement {
   const ref = React.useRef<HTMLDivElement>();
-  React.useEffect(() => {
+
+  if (!ref.current) {
     ref.current = document.createElement("div");
     document.body.appendChild(ref.current);
+  }
 
-    const node = ref.current;
+  React.useEffect(() => {
     return () => {
-      document.body.removeChild(node);
+      const node = ref.current;
+      if (node) {
+        document.body.removeChild(node);
+      }
     };
   }, []);
 
@@ -69,40 +73,31 @@ function usePageTransition(isOpen: boolean) {
   }, [isOpen]);
 }
 
-export const TabPage = ({ children, isOpen, innerRef }: Props) => {
+export const TabPage = ({ children, isOpen }: Props) => {
   const pageRef = React.useRef<HTMLDivElement | null>(null);
   const container = useOuterContainer();
   useBodyScrollLock(isOpen, pageRef);
   usePageTransition(isOpen);
 
-  if (container) {
-    return ReactDOM.createPortal(
-      <div
-        style={{
-          position: "fixed",
-          overflowY: "scroll",
-          backgroundColor: "white",
-          width: "100vw",
-          top: 0,
-          height: "100vh",
-          transition: `left ${TRANSITION_DURATION}s ease-out`,
-          left: isOpen ? 0 : "100vw",
-          /* Fixes iOS vertical scroling through containers with horizontal scroll
+  return ReactDOM.createPortal(
+    <div
+      style={{
+        position: "fixed",
+        overflowY: "scroll",
+        backgroundColor: "white",
+        width: "100vw",
+        top: 0,
+        height: "100vh",
+        transition: `left ${TRANSITION_DURATION}s ease-out`,
+        left: isOpen ? 0 : "100vw",
+        /* Fixes iOS vertical scroling through containers with horizontal scroll
              https://stackoverflow.com/questions/41681251/overflow-x-scroll-inside-a-fixed-div-prevents-vertical-scrolling-on-ios */
-          WebkitOverflowScrolling: "touch"
-        }}
-        ref={el => {
-          pageRef.current = el;
-          if (innerRef) {
-            innerRef.current = el;
-          }
-        }}
-      >
-        {children}
-      </div>,
-      container
-    );
-  }
-
-  return null;
+        WebkitOverflowScrolling: "touch"
+      }}
+      ref={pageRef}
+    >
+      {children}
+    </div>,
+    container
+  );
 };
