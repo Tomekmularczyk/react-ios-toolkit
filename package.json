@@ -2,19 +2,6 @@
   "name": "react-ios-toolkit",
   "version": "0.0.1",
   "description": "iOS components library for the Web",
-  "main": "lib/index.js",
-  "types": "lib",
-  "scripts": {
-    "build": "NODE_ENV=production rollup -c",
-    "typecheck": "tsc --noEmit",
-    "commit": "commit",
-    "test": "test"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "repository": "git+https://github.com/Tomekmularczyk/react-ios-toolkit.git",
   "keywords": [
     "ios",
@@ -27,6 +14,26 @@
     "url": "https://github.com/Tomekmularczyk/react-ios-toolkit/issues"
   },
   "homepage": "https://github.com/Tomekmularczyk/react-ios-toolkit#readme",
+  "main": "lib/index.js",
+  "types": "lib",
+  "scripts": {
+    "build": "NODE_ENV=production rollup -c",
+    "build:declarations": "tsc --declaration --emitDeclarationOnly --declarationDir lib",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint --ext .ts,.tsx .",
+    "commit": "commit",
+    "test": "test"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": "eslint",
+    "*.{js,ts,tsx,css,md}": "prettier --write"
+  },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
@@ -36,7 +43,13 @@
     "@rollup/plugin-typescript": "^4.0.0",
     "@types/react": "^16.9.23",
     "@types/react-dom": "^16.9.5",
+    "@typescript-eslint/eslint-plugin": "^2.22.0",
+    "@typescript-eslint/parser": "^2.22.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.19.0",
     "husky": "^4.2.3",
+    "lint-staged": "^10.0.8",
+    "prettier": "^1.19.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "rollup": "^2.0.2",
