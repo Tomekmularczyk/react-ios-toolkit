@@ -22,7 +22,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint --ext .ts,.tsx .",
     "commit": "commit",
-    "test": "test"
+    "test": "echo tests comming soon!"
   },
   "husky": {
     "hooks": {
